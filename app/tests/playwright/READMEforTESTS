@@ -1,0 +1,16 @@
+To run the tests, you first need to install Node.js.
+You can download it from the official website: https://nodejs.org/en/download/
+Then, install Playwright with the following commands:
+
+npm install -D @playwright/test
+npx playwright install
+
+To run a specific test file:
+
+npx playwright test tests/playwright/updateTransactionCategory.spec.js
+
+To run all test files at once:
+
+npx playwright test
+
+However, let's not do that just yet. Once the errors are fixed, I’ll need to adjust the execution order.
