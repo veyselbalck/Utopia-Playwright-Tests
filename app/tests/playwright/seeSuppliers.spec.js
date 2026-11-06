@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const config = require('./config');
 
- test('display of stock supliers', async ({ page }) => {
+ test('display of stock suppliers', async ({ page }) => {
     // Admin paneline giriş yap
     await page.goto(config.urls.loginPage);
     await page.fill('#id_email', config.credentials.email);
@@ -9,11 +9,11 @@ const config = require('./config');
     await page.click('button[type="submit"]');
     await expect(page).toHaveURL(config.urls.dashboardPage);
 
-    // Stok supliers listesi
+    // Stok suppliers listesi
     await page.click('a:has-text("Stocks")');
     await page.click('a[href="/stocks/suppliers/"]');
 
-    await expect(page).toHaveURL(config.urls.StockSupliers);
+    await expect(page).toHaveURL(config.urls.StockSuppliers);
 
 
       // Wait for the table to load completely (adjust the selector accordingly)

@@ -47,7 +47,7 @@ test('update personalinfo', async ({ page }) => {
     await page.fill('#id_birth_date', '1990-01-01');
 
     // E-posta adresini gir
-    await page.fill('#id_email', 'johndoe@gmail.com');
+    await page.fill('#id_email', 'johndoe@example.com');
 
     // Meslek bilgisini gir
     await page.fill('#id_profession', 'Software Developer');

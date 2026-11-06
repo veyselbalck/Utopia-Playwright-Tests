@@ -1,149 +1,111 @@
-# Utopia-Playwright-Tests
-Utopia projesi için Playwright ile geliştirilmiş otomasyon testleri. Kullanıcı giriş/çıkışı, CRUD işlemleri, form elemanları, dosya yükleme ve liste kontrollerini kapsar.
----
+# Utopia Playwright Tests
 
-## 📌 Proje Hakkında
+Utopia için Playwright ile yazılmış uçtan uca testler bu depoda bulunur. Uygulama özel olduğu için paylaşılmamıştır; testler uygulamanın yapısını ve otomasyon yaklaşımını göstermek içindir.
 
-Utopia, Django tabanlı bir yönetim paneli ve çeşitli modüllerden oluşan bir web uygulamasıdır.  
-Proje; hasta, doktor, stok, ödeme, etkinlik, paket gibi birçok yönetim ekranı içermektedir.
+## Test kapsamı
 
----
+`app/tests/playwright/` altındaki testler giriş/çıkış, kayıt oluşturma ve güncelleme, listeleme, form alanları ve görsel yükleme akışlarını kapsar. Onarım bekleyen `app/tests/waiting for repair/` testleri varsayılan çalıştırmaya dahil değildir.
 
-## 🧪 Test Süreci
+`0` ile başlayan üç test (`0createCatalogTreatment`, `0createRoom`, `0createTransactionCategory`) sonraki akışların ihtiyaç duyduğu katalog, oda ve işlem kategorisi verilerini hazırlar. Playwright yapılandırması test dosyalarını tek worker ile çalıştırdığı için bu alfabetik ön ekli hazırlık testleri diğer testlerden önce çalışır.
 
-Testler **Playwright** framework'ü kullanılarak yazılmıştır.  
-Otomasyon testleri ile doğrulanan başlıca işlemler:
+## Kurulum
 
-- Kullanıcı girişi ve çıkışı
-- Hasta, doktor, stok, paket, ödeme, etkinlik, tedavi, muayene, oda vb. modüllerde **kayıt oluşturma**, **güncelleme** ve **listeleme**
-- Select2 gibi özel form elemanlarının otomasyonu
-- Görsel yükleme ve dosya inputlarının test edilmesi
-- Tablo ve liste kontrolleri
+1. Node.js kurun.
+2. Bağımlılıkları ve Playwright tarayıcılarını kurun:
 
----
-
-## ⚙️ Kurulum ve Ortam Değişkenleri
-
-1. **Node.js** kurulu olmalıdır.  
-   [Node.js resmi sitesi](https://nodejs.org/) üzerinden yükleyebilirsiniz.
-
-2. Bağımlılıkları yükleyin:
    ```sh
-   npm install -D @playwright/test
+   npm install
    npx playwright install
    ```
 
-3. `.env` dosyası oluşturun ve gerekli ortam değişkenlerini ekleyin:
+3. `.env.example` dosyasını `.env` olarak kopyalayın ve kendi test ortamınıza göre düzenleyin:
+
    ```env
    BASE_URL=http://localhost:8000
-   TEST_USERNAME=admin
-   TEST_PASSWORD=admin123
-   ```
-   - BASE_URL değeri testlerin çalışacağı ortamın adresi olmalıdır.
-   - TEST_USERNAME ve TEST_PASSWORD giriş yapılacak kullanıcı bilgilerini temsil eder.
-
-4. Testleri çalıştırın:
-   ```sh
-   npx playwright test app/tests/playwright/
-   ```
-   Belirli bir test dosyasını çalıştırmak için:
-   ```sh
-   npx playwright test app/tests/playwright/login.spec.js
+   TEST_USERNAME=test-user@example.com
+   TEST_PASSWORD=replace-with-a-test-password
    ```
 
----
+   `TEST_USERNAME` ve `TEST_PASSWORD` yalnızca test hesabına ait olmalıdır. Gerçek veya tekrar kullanılan parolaları depoya eklemeyin.
 
-## 📷 Proje Görüntüleri
+## Testleri çalıştırma
 
-Aşağıdaki resimler, projenin arayüzüne dair örneklerdir:
+```sh
+npm test
+```
 
-![dashboard](media/dashboard.png)
-![testfiles](media/testfiles.png)
----
+Belirli bir testi çalıştırmak için:
 
-## 📂 Test Dosyaları
+```sh
+npx playwright test app/tests/playwright/login.spec.js
+```
 
-Tüm test dosyaları `app/tests/playwright/` klasöründe yer almaktadır.  
-Her modül için ayrı test dosyaları oluşturulmuştur.
+Test çalıştırması terminalde sonuçları listeler ve HTML raporunu `playwright-report/` klasörüne yazar. Raporu açmak için:
 
----
+```sh
+npm run test:report
+```
 
-⚠️ Not: Test kodlarının tamamı bana aittir ve bu repoda paylaşılmıştır.
+## Görseller
 
----
+Aşağıdaki dosyalar arayüz/test dosyalarına ilişkin örnek görsellerdir; test çalıştırma sonucu veya başarılı test kanıtı değildir.
 
-# About Playwright Tests and Project (English Version)
-
-This repository contains Playwright automation tests for the Utopia project.  
-All test codes are developed by me and shared to prove ownership of the test processes.
-
----
-
-## 📌 About the Project
-
-Utopia is a Django-based admin panel and web application with various modules.  
-The project includes management screens for patient, doctor, stock, payment, event, package, and more.
+![Dashboard örneği](media/dashboard.png)
+![Test dosyaları örneği](media/testfiles.jpeg)
 
 ---
 
-## 🧪 Test Process
+# Utopia Playwright Tests (English)
 
-Tests are written using the Playwright framework.  
-The automation tests verify the following:
+This repository contains Playwright end-to-end tests for Utopia. The application is private and is not included; the tests are shared to demonstrate its structure and the automation approach.
 
-- User login and logout
-- Creating, updating, and listing records for modules such as patient, doctor, stock, package, payment, event, treatment, examination, room, etc.
-- Automation of special form elements like Select2
-- Image upload and file input testing
-- Table and list controls
+## Coverage
 
----
+Tests under `app/tests/playwright/` cover login/logout, record creation and updates, list views, form fields, and image uploads. Tests under `app/tests/waiting for repair/` are excluded from the default run until repaired.
 
-## ⚙️ Setup & Environment Variables
+The three `0`-prefixed tests (`0createCatalogTreatment`, `0createRoom`, and `0createTransactionCategory`) prepare catalog, room, and transaction-category data required by subsequent flows. The Playwright configuration uses a single worker, so these alphabetically prefixed setup tests run before the other test files.
 
-1. Node.js must be installed.  
-   Download from [Node.js official site](https://nodejs.org/).
+## Setup
 
-2. Install dependencies:
+1. Install Node.js.
+2. Install dependencies and Playwright browsers:
+
    ```sh
-   npm install -D @playwright/test
+   npm install
    npx playwright install
    ```
 
-3. Create a `.env` file and set the required environment variables:
+3. Copy `.env.example` to `.env` and update it for your test environment:
+
    ```env
    BASE_URL=http://localhost:8000
-   TEST_USERNAME=admin
-   TEST_PASSWORD=admin123
-   ```
-   - BASE_URL is the environment URL where tests will run.
-   - TEST_USERNAME and TEST_PASSWORD are the login credentials for the tests.
-
-4. Run all tests:
-   ```sh
-   npx playwright test app/tests/playwright/
-   ```
-   Run a specific test file:
-   ```sh
-   npx playwright test app/tests/playwright/login.spec.js
+   TEST_USERNAME=test-user@example.com
+   TEST_PASSWORD=replace-with-a-test-password
    ```
 
----
+   Use credentials created specifically for testing. Do not commit real or reused passwords.
 
-## 📷 Project Screenshots
+## Run tests
 
-The images below are examples of the project's interface:
+```sh
+npm test
+```
 
-![dashboard](media/dashboard.png)
-![testfiles](media/testfiles.png)
+Run one test:
 
----
+```sh
+npx playwright test app/tests/playwright/login.spec.js
+```
 
-## 📂 Test Files
+The run prints results in the terminal and writes an HTML report to `playwright-report/`. Open it with:
 
-All test files are located in the `app/tests/playwright/` folder.  
-Each module has its own test file.
+```sh
+npm run test:report
+```
 
----
+## Images
 
-All test codes are written by me and shared in this repository.
+The images below are examples of the interface and test files, not evidence of a test run or passing tests.
+
+![Dashboard example](media/dashboard.png)
+![Test files example](media/testfiles.jpeg)

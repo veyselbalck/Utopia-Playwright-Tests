@@ -1,0 +1,13 @@
+{
+  "name": "utopia-playwright-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "dotenv": "^16.4.7"
+  }
+}

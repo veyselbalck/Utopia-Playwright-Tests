@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 const config = require("./config");
 
-test('stock suplier update', async ({ page }) => {
+test('stock supplier update', async ({ page }) => {
   // Admin paneline giriş yap
   await page.goto(config.urls.loginPage);
   await page.fill('#id_email', config.credentials.email);
@@ -9,10 +9,10 @@ test('stock suplier update', async ({ page }) => {
   await page.click('button[type="submit"]');
   await expect(page).toHaveURL(config.urls.dashboardPage);
 
-    // Stok supliers listesi
+    // Stok suppliers listesi
     await page.click('a:has-text("Stocks")');
     await page.click('a[href="/stocks/suppliers/"]');
-    await expect(page).toHaveURL(config.urls.StockSupliers);
+    await expect(page).toHaveURL(config.urls.StockSuppliers);
 
   // Tablo yüklensin ve tüm satırlar görünsün diye daha geniş bir bekleme ekleyelim
   await page.waitForSelector('table tbody tr', { timeout: 10000 });
@@ -51,4 +51,3 @@ test('stock suplier update', async ({ page }) => {
     }
   }
 });
-
